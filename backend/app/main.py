@@ -5,6 +5,7 @@ from app.auth_routes import router as auth_router
 from app.compliance import router as compliance_router
 from app.evidence_routes import router as evidence_router
 from app.dashboard import router as dashboard_router
+from app.audit import router as audit_router
 from app.risk.engine import calculate_risk
 
 Base.metadata.create_all(bind=engine)
@@ -14,6 +15,7 @@ app.include_router(grc_router)
 app.include_router(compliance_router)
 app.include_router(evidence_router)
 app.include_router(dashboard_router)
+app.include_router(audit_router)
 
 @app.get("/health", tags=["system"])
 def health():
