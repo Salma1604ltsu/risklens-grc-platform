@@ -73,3 +73,14 @@ class Remediation(Base):
     owner: Mapped[str] = mapped_column(String(120))
     status: Mapped[str] = mapped_column(String(30), default="Open")
     due_date: Mapped[str | None] = mapped_column(String(30), nullable=True)
+
+class AuditLog(Base):
+    __tablename__ = "audit_logs"
+    id: Mapped[int] = mapped_column(primary_key=True)
+    user_id: Mapped[int | None] = mapped_column(Integer, nullable=True, index=True)
+    user_email: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    action: Mapped[str] = mapped_column(String(50), index=True)
+    resource_type: Mapped[str] = mapped_column(String(80), index=True)
+    resource_id: Mapped[str | None] = mapped_column(String(80), nullable=True)
+    details: Mapped[str | None] = mapped_column(Text, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, index=True)
