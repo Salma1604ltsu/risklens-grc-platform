@@ -1,0 +1,23 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: risklens
+      POSTGRES_USER: risklens
+      POSTGRES_PASSWORD: risklens
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  api:
+    build: ./backend
+    environment:
+      DATABASE_URL: postgresql+psycopg://risklens:risklens@db:5432/risklens
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
